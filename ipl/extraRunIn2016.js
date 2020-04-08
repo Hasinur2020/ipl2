@@ -18,7 +18,7 @@ function extraRunIn2016(matches,deliveries) {
             }
         }
     }
-    //console.log(result);
+
     return result;
 }
 

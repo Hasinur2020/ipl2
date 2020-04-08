@@ -7,6 +7,16 @@
     <meta name="description" content="IPL visualization">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link href="./styles.css" rel="stylesheet">
+    <style>
+        .a{
+            border: 10px;
+            padding: 30px;
+            box-shadow: 10px 10px 10px 10px #888888;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
     <title>
         IPL visualization
     </title>
@@ -14,16 +24,11 @@
 
 <body>
     <h1><b>IPL Dataset visualization</b></h1>
-    <form id="frm1" action="/action_page.php">
-        <h2>Enter Year: <input type="text" name="fname"> 
-        <input type="button" onclick="myFunction()" value="Submit">
-        </h2>
-    </form>
-    <div id="matches-played-per-year" style="min-width: 310px; height: 500px; margin: 1 auto"></div>
-    <div id="matches-won-per-year-each-team" style="min-width: 310px; height: 500px; margin: 1 auto"></div>
-    <div id="extra-run-in-2016" style="min-width: 310px; height: 500px; margin: 1 auto"></div>
-    <div id="economical-bowlers-in-2015" style="min-width: 310px; height: 500px; margin: 1 auto"></div>
-    <div id="match-played-in-city" style="min-width: 310px; height: 500px; margin: 1 auto"></div>
+    <div id="matches-played-per-year" class="a" style="min-width: 310px; height: 550px; margin: 1 auto"></div>
+    <div id="matches-won-per-year-each-team" class="a" style="min-width: 310px; height: 550px; margin: 1 auto"></div>
+    <div id="extra-run-in-2016" class="a" style="min-width: 310px; height: 550px; margin: 1 auto"></div>
+    <div id="economical-bowlers-in-2015" class="a" style="min-width: 310px; height: 550px; margin: 1 auto"></div>
+    <div id="match-played-in-city" class="a" style="min-width: 310px; height: 700px; margin: 1 auto"></div>
     
     <script src="https://code.highcharts.com/highcharts.js"></script>
     

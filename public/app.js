@@ -18,12 +18,8 @@ function visualizeData(data) {
 
 // It's for 1st visulazition
 function visualizeMatchesPlayedPerYear(matchesPlayedPerYear) {
-  //var name = window.prompt("I am Hasinur Rahaman");
-  // intial comment
-  //abcd
   
   const seriesData = [];
-  
   for (let year in matchesPlayedPerYear) {
     seriesData.push([year, matchesPlayedPerYear[year]]);
   }
@@ -33,21 +29,17 @@ function visualizeMatchesPlayedPerYear(matchesPlayedPerYear) {
       type: "column"
     },
     title: {
-      text: "Matches Played Per Year"
+      text: "1. Matches Played Per Year"
     },
     subtitle: {
       text:
         'Source: <a href="https://www.kaggle.com/nowke9/ipldata/data">IPL Dataset</a>'
     },
     xAxis: {
-      type: "category",
-      labels: {
-        rotation: -45,
-        style: {
-          fontSize: "13px",
-          fontFamily: "Verdana, sans-serif"
-        }
-      }
+      title: {
+        text: "years"
+      },
+      type: "category"
     },
     yAxis: {
       min: 0,
@@ -55,68 +47,56 @@ function visualizeMatchesPlayedPerYear(matchesPlayedPerYear) {
         text: "Matches"
       }
     },
-    legend: {
-      enabled: !1
-    },
     tooltip: {
-      pointFormat: "Economy: <b>{point.y:0.2f} </b>"
+      headerFormat: '<span style="font-size:15px"><b>{point.key}</b></span><table>',
+      pointFormat:
+        '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+        '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+      footerFormat: "</table>",
+      shared: true,
+      useHTML: true
     },
     series: [
       {
-        name: "Years",
+        name: "Matches",
         data: seriesData,
-        dataLabels: {
-          enabled: !0,
-          rotation: 0,
-          color: "#FFFFFF",
-          align: "center",
-          format: "{point.y:.2f}",
-          y: 25,
-          style: {
-            fontSize: "13px",
-            fontFamily: "Verdana, sans-serif"
-          }
-        }
       }
     ]
-  });  
+  });
 }
 
 // It's for 2nd visualization
-
 function visualizeMatchesWonPerYearEachTeam(matchesWonPerYearEachTeam) {
 
   const years = [];
   for (let yeardata in matchesWonPerYearEachTeam) {
     years.push(yeardata);
   }
-  let newResult = matchesWonPerYearEachTeam;
-  let hasi = [];//names of team
+  
+  let teamName = [];
   for (let i of years) {
-    for (let j in newResult[i]) {
-      if (hasi.includes(j)) {
-
-      } else {
-        hasi.push(j);
+    for (let j in matchesWonPerYearEachTeam[i]) {
+      if (!teamName.includes(j)) {
+        teamName.push(j);
       }
     }
   }
-  //console.log(hasi);
-      
-  let nur = [];
-  for (let i of hasi) {
-    let xxx = {};
+  
+  //modify data accordingly highchartdata    
+  let seriesData = [];
+  for (let i of teamName) {
+    let sortedData = {};
     let data = [];
-    xxx["name"] = i;
+    sortedData["name"] = i;
     for (let j of years) {
-      if (i in newResult[j]) {
-        data.push(parseInt(newResult[j][i]))
+      if (i in matchesWonPerYearEachTeam[j]) {
+        data.push(parseInt(matchesWonPerYearEachTeam[j][i]))
       } else {
         data.push(0);
       }
     }
-    xxx["data"] = data;
-    nur.push(xxx);
+    sortedData["data"] = data;
+    seriesData.push(sortedData);
   }
 
   Highcharts.chart("matches-won-per-year-each-team", {
@@ -124,14 +104,17 @@ function visualizeMatchesWonPerYearEachTeam(matchesWonPerYearEachTeam) {
       type: "column"
     },
     title: {
-      text: "Number of matches won by all team over all the years of ipl"
+      text: "2. Number Of Matches Won By All Team Over All The Years Of ipl"
     },
     subtitle: {
       text: 'Source: <a href="https://www.kaggle.com/nowke9/ipldata/data">IPL Dataset</a>'
     },
     xAxis: {
-       categories: years,
-    crosshair: true
+      categories: years,
+      title: {
+        text: "Years"
+      },
+      crosshair: true
     },
     yAxis: {
       min: 0,
@@ -140,7 +123,7 @@ function visualizeMatchesWonPerYearEachTeam(matchesWonPerYearEachTeam) {
       }
     },
     tooltip: {
-      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+      headerFormat: '<span style="font-size:15px"><b>{point.key}</b></span><table>',
       pointFormat:
         '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
         '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
@@ -150,11 +133,11 @@ function visualizeMatchesWonPerYearEachTeam(matchesWonPerYearEachTeam) {
     },
     plotOptions: {
       column: {
-        pointPadding: 0.1,
+        pointPadding: 0.0,
         borderWidth: 1
       }
     },
-    series:nur
+    series:seriesData
   });
 }
 
@@ -172,14 +155,17 @@ function visualizeExtraRunIn2016(extraRunIn2016) {
       type: "column"
     },
     title: {
-      text: "Extra Run In 2016"
+      text: "3. Extra Runs By Each Team In 2016"
     },
     subtitle: {
       text:
         'Source: <a href="https://www.kaggle.com/nowke9/ipldata/data">IPL Dataset</a>'
     },
     xAxis: {
-      type: "category"
+      type: "category",
+      title: {
+        text: "Teams"
+      }
     },
     yAxis: {
       min: 0,
@@ -187,9 +173,18 @@ function visualizeExtraRunIn2016(extraRunIn2016) {
         text: "Extra Runs"
       }
     },
+    tooltip: {
+      headerFormat: '<span style="font-size:13px"><b>{point.key}</b></span><table>',
+      pointFormat:
+        '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+        '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+      footerFormat: "</table>",
+      shared: true,
+      useHTML: true
+    },
     series: [
       {
-        name: "Team",
+        name: "Extra Run",
         data: seriesData
       }
     ]
@@ -209,7 +204,7 @@ function visualizeEconomicalBowlersIn2015(economicalBowlersIn2015) {
       type: "column"
     },
     title: {
-      text: "Top Economical Bowlers in 2015"
+      text: "4. Top Economical Bowlers In 2015"
     },
     subtitle: {
       text:
@@ -217,12 +212,8 @@ function visualizeEconomicalBowlersIn2015(economicalBowlersIn2015) {
     },
     xAxis: {
       type: "category",
-      labels: {
-        rotation: -45,
-        style: {
-          fontSize: "13px",
-          fontFamily: "Verdana, sans-serif"
-        }
+      title: {
+        text: "Bowlers"
       }
     },
     yAxis: {
@@ -231,28 +222,19 @@ function visualizeEconomicalBowlersIn2015(economicalBowlersIn2015) {
         text: "Economy"
       }
     },
-    legend: {
-      enabled: false
-    },
     tooltip: {
-      pointFormat: "Economy: <b>{point.y:.1f} </b>"
+      headerFormat: '<span style="font-size:13px"><b>{point.key}</b></span><table>',
+      pointFormat:
+        '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+        '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+      footerFormat: "</table>",
+      shared: true,
+      useHTML: true
     },
     series: [
       {
-        name: "Bowlers",
+        name: "Economy",
         data: seriesData,
-        dataLabels: {
-          enabled: true,
-          // rotation: -90,
-          color: "#FFFFFF",
-          align: "right",
-          format: "{point.y:.2f}", //two decimal
-          y: 10, // 10 pixels down from the top
-          style: {
-            fontSize: "13px",
-            fontFamily: "Verdana, sans-serif"
-          }
-        }
       }
     ]
   });
@@ -261,40 +243,35 @@ function visualizeEconomicalBowlersIn2015(economicalBowlersIn2015) {
 
 // It's for 5th visualization
 function visualizeMatchPlayedInCity(matchPlayedInCity) {
+  
   let years = [];
-  //let seriesData = [];
-
   for (year in matchPlayedInCity) {
     years.push(year);
   }
 
-  let newResult = matchPlayedInCity;
-  let hasi = [];//names of team
+  let cityNames = [];
   for (let i of years) {
-    for (let j in newResult[i]) {
-      if (hasi.includes(j)) {
-
-      } else {
-        hasi.push(j);
+    for (let j in matchPlayedInCity[i]) {
+      if (!cityNames.includes(j)) {
+        cityNames.push(j);
       }
     }
   }
-  //console.log(hasi);
-      
-  let nur = [];
-  for (let i of hasi) {
-    let xxx = {};
+  //modify data accordingly highchartdata   
+  let seriesData = [];
+  for (let i of cityNames) {
+    let sortedData = {};
     let data = [];
-    xxx["name"] = i;
+    sortedData["name"] = i;
     for (let j of years) {
-      if (i in newResult[j]) {
-        data.push(parseInt(newResult[j][i]))
+      if (i in matchPlayedInCity[j]) {
+        data.push(parseInt(matchPlayedInCity[j][i]))
       } else {
         data.push(0);
       }
     }
-    xxx["data"] = data;
-    nur.push(xxx);
+    sortedData["data"] = data;
+    seriesData.push(sortedData);
   }
 
   Highcharts.chart("match-played-in-city", {
@@ -302,7 +279,7 @@ function visualizeMatchPlayedInCity(matchPlayedInCity) {
       type: "column"
     },
     title: {
-      text: "2. Number of matches won by all team over all the years of ipl"
+      text: "5. Number Of Matches Played In City Over All The Years Of ipl"
     },
     subtitle: {
       text:
@@ -310,6 +287,9 @@ function visualizeMatchPlayedInCity(matchPlayedInCity) {
     },
     xAxis: {
        categories: years,
+       title: {
+         text: "Year"
+       },
     crosshair: true
     },
     yAxis: {
@@ -319,7 +299,7 @@ function visualizeMatchPlayedInCity(matchPlayedInCity) {
       }
     },
     tooltip: {
-      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+      headerFormat: '<span style="font-size:15px"><b>{point.key}</b></span><table>',
       pointFormat:
         '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
         '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
@@ -329,12 +309,10 @@ function visualizeMatchPlayedInCity(matchPlayedInCity) {
     },
     plotOptions: {
       column: {
-        pointPadding: 0.1,
-        borderWidth: 1
+        pointPadding: 0.0,
+        borderWidth: 0
       }
     },
-    series:nur
+    series:seriesData
   });
-
 }
-

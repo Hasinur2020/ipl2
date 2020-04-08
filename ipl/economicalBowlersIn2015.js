@@ -1,6 +1,6 @@
 function economicalBowlersIn2015(matches,deliveries) {
     const result = [];
-    const finalResult = [];
+    const top10Economy = [];
     let bowlerRun = {};
     let bowlerBall = {};
     // It's for calculate the economy rates
@@ -44,28 +44,15 @@ function economicalBowlersIn2015(matches,deliveries) {
     })
     //It's for get first 10 number of economy bowler name and rate
     for (let i = 0; i < 10; i++) {
-        finalResult[i] = result[i];
+        top10Economy[i] = result[i];
+    }
+    // Some modifications of top10Economy for easily visualize
+    let modifiedData ={};
+    for (final of top10Economy) {
+        modifiedData[final.bowler] = parseFloat(final.economy);
     }
 
-
-    // Some modifications of finalResult for easily visualize
-    let myData ={};
-    for (final of finalResult) {
-        //let newp = {};
-        myData[final.bowler] = parseFloat(final.economy);
-       // myData.push(newp);
-    }
-
-    // const seriesData = [];
-    // for (let year in myData) {
-    //     seriesData.push([year, myData[year]]);
-    // }
-    // console.log(seriesData);
-    //console.log(myData);
-    //console.log(finalResult);
-    //console.log(bowlerRun);
-    //console.log(bowlerBall);
-    return myData;
+    return modifiedData;
 }
 
 module.exports = economicalBowlersIn2015;
