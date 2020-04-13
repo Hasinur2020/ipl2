@@ -1,3 +1,94 @@
+// This is for Year wise Economical rates It's Start Here
+//4th Visualization
+function getOption() { 
+  selectElement = document.querySelector('.input'); 
+  year = selectElement.value;
+  userInput(year); 
+}
+function userInput(year) {
+  year = parseInt(year);
+
+  //Get your Data from data.json file
+  function fetchAndVisualizeData() {
+    fetch("./data.json")
+      .then(r => r.json())
+      .then(visualizeData);
+  }
+  
+  fetchAndVisualizeData();
+  
+  //Visualize Accessed Data
+  function visualizeData(data) {
+    visualizeEconomicalBowler(data.economicalBowler);
+    return;
+  }
+
+  function visualizeEconomicalBowler(economicalBowler) {
+    mainData = economicalBowler[year];
+
+    let seriesData = [];
+    for (let economy in mainData) {
+      seriesData.push([economy, mainData[economy]]);
+    }
+    
+    Highcharts.chart("economical-bowler", {
+      chart: {
+        type: "column"
+      },
+      title: {
+        text: "4. Top Economical Bowlers In " + year
+      },
+      subtitle: {
+        text:
+          'Source: <a href="https://www.kaggle.com/nowke9/ipldata/data">IPL Dataset</a>'
+      },
+      xAxis: {
+        type: "category",
+        title: {
+          text: "Bowlers"
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: "Economy"
+        }
+      },
+      tooltip: {
+        headerFormat: '<span style="font-size:13px"><b>{point.key}</b></span><table>',
+        pointFormat:
+          '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+          '<td style="padding:0"><b>{point.y:.2f} </b></td></tr>',
+        footerFormat: "</table>",
+        shared: true,
+        useHTML: true
+      },
+      series: [
+        {
+          name: "Economy",
+          data: seriesData,
+          dataLabels: {
+            enabled: !0,
+            rotation: 0,
+            color: '#FFFFFF',
+            align: 'center',
+            format: '{point.y:.2f}',
+            y: 25,
+            style: {
+              fontSize: '13px',
+              fontFamily: 'Verdana, sans-serif'
+            }
+          }
+        }
+      ]
+    });
+  }
+}
+// It's ends here
+
+
+
+
 function fetchAndVisualizeData() {
   fetch("./data.json")
     .then(r => r.json())
@@ -9,8 +100,7 @@ fetchAndVisualizeData();
 function visualizeData(data) {
   visualizeMatchesPlayedPerYear(data.matchesPlayedPerYear);
   visualizeMatchesWonPerYearEachTeam(data.matchesWonPerYearEachTeam);
-  visualizeExtraRunIn2016(data.extraRunIn2016);  
-  visualizeEconomicalBowlersIn2015(data.economicalBowlersIn2015);
+  visualizeExtraRunIn2016(data.extraRunIn2016);
   visualizeMatchPlayedInCity(data.matchPlayedInCity);
   return;
 }
@@ -51,7 +141,7 @@ function visualizeMatchesPlayedPerYear(matchesPlayedPerYear) {
       headerFormat: '<span style="font-size:15px"><b>{point.key}</b></span><table>',
       pointFormat:
         '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+        '<td style="padding:0"><b>{point.y:.0f} </b></td></tr>',
       footerFormat: "</table>",
       shared: true,
       useHTML: true
@@ -60,10 +150,23 @@ function visualizeMatchesPlayedPerYear(matchesPlayedPerYear) {
       {
         name: "Matches",
         data: seriesData,
+        dataLabels: {
+          enabled: !0,
+          rotation: 0,
+          color: '#FFFFFF',
+          align: 'center',
+          format: '{point.y:.0f}',
+          y: 25,
+          style: {
+            fontSize: '13px',
+            fontFamily: 'Verdana, sans-serif'
+          }
+        }
       }
     ]
   });
 }
+
 
 // It's for 2nd visualization
 function visualizeMatchesWonPerYearEachTeam(matchesWonPerYearEachTeam) {
@@ -126,7 +229,7 @@ function visualizeMatchesWonPerYearEachTeam(matchesWonPerYearEachTeam) {
       headerFormat: '<span style="font-size:15px"><b>{point.key}</b></span><table>',
       pointFormat:
         '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+        '<td style="padding:0"><b>{point.y:.0f} </b></td></tr>',
       footerFormat: "</table>",
       shared: true,
       useHTML: true
@@ -177,7 +280,7 @@ function visualizeExtraRunIn2016(extraRunIn2016) {
       headerFormat: '<span style="font-size:13px"><b>{point.key}</b></span><table>',
       pointFormat:
         '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+        '<td style="padding:0"><b>{point.y:.0f} </b></td></tr>',
       footerFormat: "</table>",
       shared: true,
       useHTML: true
@@ -185,56 +288,19 @@ function visualizeExtraRunIn2016(extraRunIn2016) {
     series: [
       {
         name: "Extra Run",
-        data: seriesData
-      }
-    ]
-  });
-}
-
-// It's for 4th visualization
-function visualizeEconomicalBowlersIn2015(economicalBowlersIn2015) {
-  
-  let seriesData = [];
-  for (let economy in economicalBowlersIn2015) {
-    seriesData.push([economy, economicalBowlersIn2015[economy]]);
-  }
-  
-  Highcharts.chart("economical-bowlers-in-2015", {
-    chart: {
-      type: "column"
-    },
-    title: {
-      text: "4. Top Economical Bowlers In 2015"
-    },
-    subtitle: {
-      text:
-        'Source: <a href="https://www.kaggle.com/nowke9/ipldata/data">IPL Dataset</a>'
-    },
-    xAxis: {
-      type: "category",
-      title: {
-        text: "Bowlers"
-      }
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: "Economy"
-      }
-    },
-    tooltip: {
-      headerFormat: '<span style="font-size:13px"><b>{point.key}</b></span><table>',
-      pointFormat:
-        '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
-      footerFormat: "</table>",
-      shared: true,
-      useHTML: true
-    },
-    series: [
-      {
-        name: "Economy",
         data: seriesData,
+        dataLabels: {
+          enabled: !0,
+          rotation: 0,
+          color: '#FFFFFF',
+          align: 'center',
+          format: '{point.y:.0f}',
+          y: 25,
+          style: {
+            fontSize: '13px',
+            fontFamily: 'Verdana, sans-serif'
+          }
+        }
       }
     ]
   });
@@ -302,7 +368,7 @@ function visualizeMatchPlayedInCity(matchPlayedInCity) {
       headerFormat: '<span style="font-size:15px"><b>{point.key}</b></span><table>',
       pointFormat:
         '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+        '<td style="padding:0"><b>{point.y:.0f} </b></td></tr>',
       footerFormat: "</table>",
       shared: true,
       useHTML: true

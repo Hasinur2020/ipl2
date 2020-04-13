@@ -1,3 +1,102 @@
 body {
-    font-family: sans-serif;
+  font-family: sans-serif;
 }
+
+h1 {
+  text-align: center;
+  font-size: 45px;
+}
+
+/*Highchart Style Start Here*/
+.a{
+  border: 10px;
+  padding: 30px;
+  margin: 2rem;
+  min-width: 310px;
+  height: 550px; 
+  margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 10px 10px 10px 10px #888888;
+}
+.b{
+  border: 10px;
+  padding: 30px;
+  margin: 2rem;
+  min-width: 310px;
+  height: 700px;
+  margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 10px 10px 10px 10px #888888;
+}
+/*Highchart Style End Here*/
+
+/*It's For User Input Div Part Start Here*/
+.input-part {
+  font-size: 1.5rem;
+  margin-left: 2rem;
+  margin-right: 0.5rem;
+}
+/*It's For User Input Div Part End Here*/
+
+/*Year Selection Style Start Here*/
+.input{
+  border: 0;
+  color: rgb(0, 0, 0);
+  background: transparent;
+  font-size: 1.5rem;
+  border-radius: 1px;
+  padding: 6px;
+  width: 110px;
+  overflow:hidden;
+  border-radius: 9px 9px 9px 9px;
+  box-shadow: 1px 1px 11px #330033;
+  background: rgb(248, 244, 244);
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+/*Year Selection Style End Here*/
+
+/* Button Style start here*/
+.button {
+  display: inline-block;
+  border-radius: 1px;
+  background-color: #000000;
+  border: 0;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 1.5rem;
+  border-radius: 1px;
+  padding: 6px;
+  width: 120px;
+  cursor: pointer;
+  border-radius: 9px 9px 9px 9px;
+  box-shadow: 1px 1px 11px #330033;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+  
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+  
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -10px;
+  transition: 0.5s;
+}
+  
+.button:hover span {
+  padding-right: 15px;
+}
+  
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+/*Button Style End Here*/

@@ -7,16 +7,6 @@
     <meta name="description" content="IPL visualization">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link href="./styles.css" rel="stylesheet">
-    <style>
-        .a{
-            border: 10px;
-            padding: 30px;
-            box-shadow: 10px 10px 10px 10px #888888;
-        }
-        h1 {
-            text-align: center;
-        }
-    </style>
     <title>
         IPL visualization
     </title>
@@ -24,11 +14,32 @@
 
 <body>
     <h1><b>IPL Dataset visualization</b></h1>
-    <div id="matches-played-per-year" class="a" style="min-width: 310px; height: 550px; margin: 1 auto"></div>
-    <div id="matches-won-per-year-each-team" class="a" style="min-width: 310px; height: 550px; margin: 1 auto"></div>
-    <div id="extra-run-in-2016" class="a" style="min-width: 310px; height: 550px; margin: 1 auto"></div>
-    <div id="economical-bowlers-in-2015" class="a" style="min-width: 310px; height: 550px; margin: 1 auto"></div>
-    <div id="match-played-in-city" class="a" style="min-width: 310px; height: 700px; margin: 1 auto"></div>
+
+    <div id="matches-played-per-year" class="a"></div>
+    <div id="matches-won-per-year-each-team" class="a"></div>
+    <div id="extra-run-in-2016" class="a"></div>
+
+    <div class="input-part">
+        <span> Select a year for getting top 10 economical bowlers: </span>
+        <select class="input">
+            <option value="2008">2008</option>
+            <option value="2009">2009</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+        </select>
+        <button class="button" onclick="getOption()"><span> Submit </span></button>
+    </div>
+    
+    <div id="economical-bowler" class="a"></div>
+    <div id="match-played-in-city" class="b"></div>
     
     <script src="https://code.highcharts.com/highcharts.js"></script>
     
